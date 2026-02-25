@@ -442,7 +442,7 @@
         // --- CHART 2: Data Quality (Donut) ---
         const ctxData = document.getElementById('dataQualityChart').getContext('2d');
         const rawLabelsData = ['Rác SEO & Spam', 'Nội dung lặp lại (Duplicate)', 'Tri thức gốc & Giá trị cao'];
-        const processedLabelsData = rawLabelsData.map(l => wrapLabel(l));
+        const processedLabelsData = rawLabelsData;
 
         new Chart(ctxData, {
             type: 'doughnut',
