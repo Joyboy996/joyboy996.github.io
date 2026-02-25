@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mô hình nhỏ, trí tuệ lớn: Khi cuộc đua AI chuyển từ GPU sang chưng cất</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Palette: Cyber/Tech Vibrant 
+         Background: Slate 900 (#0f172a)
+         Card/Surface: Slate 800 (#1e293b)
+         Primary Text: Slate 50 (#f8fafc)
+         Accent 1 (Cyan): #06b6d4
+         Accent 2 (Fuchsia): #d946ef
+         Accent 3 (Lime): #84cc16
+    -->
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        
+        /* Chart Container Strict Styling */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #06b6d4, #d946ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Custom Pyramid CSS */
+        .pyramid-level {
+            clip-path: polygon(5% 0, 95% 0, 100% 100%, 0% 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 4px;
+            transition: transform 0.3s;
+        }
+        .pyramid-level:hover {
+            transform: scale(1.02);
+        }
+    </style>
+    <!-- 
+        NARRATIVE PLAN:
+        1. Context: The Anthropic/China controversy introduction.
+        2. Concept: Distillation (Teacher -> Student).
+        3. Economics: Cost reduction (Bar Chart).
+        4. Data: The "Junk Data" problem (Pie/Donut).
+        5. Trade-off: General vs Specialized (Radar Chart).
+        6. Strategy: China's "Good Enough" approach (Bar/Line).
+        7. Future: The 3-Tier AI Ecosystem (Pyramid).
+        
+        CHART CHOICES (NO SVG):
+        - Cost Comparison: Bar Chart (Chart.js)
+        - Data Composition: Donut Chart (Chart.js)
+        - Model Attributes: Radar Chart (Chart.js)
+        - Diagrams: HTML/CSS Flexbox (No Mermaid, No SVG)
+    -->
+</head>
+<body class="antialiased selection:bg-cyan-500 selection:text-white">
+
+    <!-- Header Block (Metadata) -->
+    <div class="max-w-4xl mx-auto p-6 border-b border-slate-700 mb-8 text-slate-400 text-sm font-mono">
+        <p>Tiêu đề: Mô hình nhỏ, trí tuệ lớn: Khi cuộc đua AI chuyển từ GPU sang chưng cất</p>
+        <p>Ngày báo cáo: 25/02/2026</p>
+        <p>Độ dài: Báo cáo chuyên sâu</p>
+        <p>Phạm vi: Công nghệ AI & Kinh tế học dữ liệu</p>
+        <p>Tác giả: Xuân Đi Chậm (Nguyễn Trường Xuân)</p>
+    </div>
+
+    <!-- Main Title Section -->
+    <header class="max-w-6xl mx-auto px-6 py-12 text-center">
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight leading-tight">
+            Mô Hình Nhỏ, <span class="gradient-text">Trí Tuệ Lớn</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto">
+            Khi cuộc đua AI chuyển dịch từ sức mạnh phần cứng (GPU) sang nghệ thuật chưng cất dữ liệu (Distillation).
+        </p>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 pb-20 space-y-24">
+
+        <!-- SECTION 1: Introduction & Context -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+                <div class="flex items-center space-x-2 mb-4">
+                    <span class="bg-cyan-500/20 text-cyan-400 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Bối Cảnh</span>
+                </div>
+                <h2 class="text-3xl font-bold mb-6 text-white">Từ 16.000 API đến Câu Hỏi Lớn</h2>
+                <p class="text-slate-300 mb-4 leading-relaxed">
+                    Gần đây, Anthropic đã cáo buộc các nền tảng AI Trung Quốc sử dụng hàng loạt tài khoản để khai thác API nhằm "chưng cất" mô hình. Sự nổi lên của <strong>DeepSeek, Moonshot AI, và MiniMax</strong> không chỉ là câu chuyện về đạo đức sử dụng API.
+                </p>
+                <p class="text-slate-300 leading-relaxed border-l-4 border-cyan-500 pl-4">
+                    Đây là dấu hiệu của một sự chuyển dịch chiến lược: Lợi thế cạnh tranh của AI liệu có còn nằm độc quyền ở các cụm GPU khổng lồ, hay đang chuyển sang khả năng tối ưu hóa và chưng cất tri thức?
+                </p>
+            </div>
+            
+            <!-- Visualization: Cost Difference -->
+            <div class="glass-card p-6 rounded-2xl shadow-xl shadow-cyan-900/20">
+                <h3 class="text-lg font-semibold mb-2 text-center text-cyan-400">Chi Phí Huấn Luyện & Vận Hành</h3>
+                <p class="text-xs text-center text-slate-400 mb-4">So sánh mô hình biên giới (Frontier) và mô hình chưng cất (Distilled)</p>
+                <div class="chart-container">
+                    <canvas id="costChart"></canvas>
+                </div>
+                <p class="mt-4 text-sm text-slate-400 italic text-center">
+                    Mô hình chưng cất đạt 80-90% năng lực nhưng giảm chi phí hàng chục lần.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 2: What is Distillation? -->
+        <section class="bg-slate-800/50 p-8 rounded-3xl border border-slate-700">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-white mb-4">Distillation: Cơ Chế "Chưng Cất Trí Tuệ"</h2>
+                <p class="text-slate-300 max-w-2xl mx-auto">
+                    Knowledge Distillation là quá trình chuyển giao tri thức từ một mô hình lớn, phức tạp (Teacher) sang một mô hình nhỏ hơn, nhanh hơn (Student) mà không cần huấn luyện lại từ đầu trên lượng dữ liệu thô khổng lồ.
+                </p>
+            </div>
+
+            <!-- Conceptual Diagram using Flexbox/Tailwind (No Mermaid/SVG) -->
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8 max-w-4xl mx-auto py-8">
+                <!-- Teacher Node -->
+                <div class="flex flex-col items-center">
+                    <div class="w-32 h-32 bg-gradient-to-br from-fuchsia-600 to-purple-800 rounded-2xl flex items-center justify-center shadow-lg shadow-fuchsia-500/30 z-10 relative">
+                        <span class="text-4xl">🧠</span>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <h4 class="font-bold text-fuchsia-400">Teacher Model</h4>
+                        <p class="text-xs text-slate-400">Khổng lồ, Chậm, Đắt</p>
+                    </div>
+                </div>
+
+                <!-- Process Flow -->
+                <div class="flex flex-col items-center w-full md:w-auto relative">
+                    <div class="h-1 w-full md:w-32 bg-slate-600 rounded"></div>
+                    <div class="absolute -top-3 bg-slate-900 px-2 text-xs text-cyan-400 font-mono border border-cyan-500/30 rounded">
+                        Logits & Chain-of-Thought
+                    </div>
+                    <div class="text-2xl text-slate-600 absolute right-0 -top-2.5 hidden md:block">▶</div>
+                    <div class="text-2xl text-slate-600 absolute bottom-[-20px] left-1/2 transform -translate-x-1/2 rotate-90 md:hidden">▼</div>
+                </div>
+
+                <!-- Student Node -->
+                <div class="flex flex-col items-center mt-8 md:mt-0">
+                    <div class="w-24 h-24 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg shadow-cyan-500/30 z-10">
+                        <span class="text-3xl">⚡</span>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <h4 class="font-bold text-cyan-400">Student Model</h4>
+                        <p class="text-xs text-slate-400">Nhỏ gọn, Nhanh, Rẻ</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-700">
+                    <h4 class="text-cyan-400 font-bold mb-2">Hệ quả 1</h4>
+                    <p class="text-sm text-slate-300">Moat (hào kinh tế) chuyển từ chi phí training sang việc <strong>ai kiểm soát Teacher Model</strong>.</p>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-700">
+                    <h4 class="text-fuchsia-400 font-bold mb-2">Hệ quả 2</h4>
+                    <p class="text-sm text-slate-300">Giảm chi phí Inference (suy luận) cực lớn, cho phép chạy AI on-device (trên điện thoại/laptop).</p>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-700">
+                    <h4 class="text-lime-400 font-bold mb-2">Hệ quả 3</h4>
+                    <p class="text-sm text-slate-300">Không cần thu thập lại toàn bộ dữ liệu gốc, tránh được các rào cản pháp lý về bản quyền dữ liệu.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Data Peak 2030 -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="order-2 md:order-1 glass-card p-6 rounded-2xl">
+                <h3 class="text-lg font-semibold mb-2 text-center text-lime-400">Chất Lượng Dữ Liệu Internet</h3>
+                <p class="text-xs text-center text-slate-400 mb-4">Phân tích thành phần dữ liệu công khai hiện nay</p>
+                <div class="chart-container">
+                    <canvas id="dataQualityChart"></canvas>
+                </div>
+                <div class="mt-4 text-center">
+                    <p class="text-sm text-slate-300">Nguy cơ <strong>"Self-referential collapse"</strong> khi AI học lại nội dung do chính AI tạo ra (Synthetic Data).</p>
+                </div>
+            </div>
+
+            <div class="order-1 md:order-2">
+                <div class="flex items-center space-x-2 mb-4">
+                    <span class="bg-lime-500/20 text-lime-400 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Rào Cản</span>
+                </div>
+                <h2 class="text-3xl font-bold mb-6 text-white">Data Peak 2030: Mỏ Vàng Hay Bãi Rác?</h2>
+                <p class="text-slate-300 mb-4 leading-relaxed">
+                    Nhiều người tin rằng Internet là mỏ vàng vô tận. Thực tế, phần lớn dữ liệu là "rác" SEO, nội dung lặp lại và thông tin vô thưởng vô phạt. Kiến thức nền tảng thực sự của nhân loại chiếm tỷ lệ cực nhỏ.
+                </p>
+                <p class="text-slate-300 leading-relaxed mb-4">
+                    Khi nguồn dữ liệu public cạn kiệt, câu hỏi trọng tâm thay đổi: 
+                    <span class="block mt-2 font-bold text-white text-lg">"AI có cần NHIỀU dữ liệu không, hay chỉ cần dữ liệu ĐÚNG?"</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Ocean vs Pool (Large vs Small) -->
+        <section>
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-white mb-2">Đại Dương vs Bể Bơi</h2>
+                <p class="text-slate-400">Sự đánh đổi cốt lõi giữa General Intelligence (Trí tuệ tổng quát) và Specialized Efficiency (Hiệu năng chuyên biệt).</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Text Content -->
+                <div class="md:col-span-1 space-y-6">
+                    <div class="p-4 border-l-2 border-fuchsia-500 bg-slate-800/30">
+                        <h3 class="text-xl font-bold text-white mb-2">Model Lớn (Ocean)</h3>
+                        <ul class="list-disc list-inside text-sm text-slate-300 space-y-2">
+                            <li>Học đa miền, kiến thức rộng.</li>
+                            <li>Khả năng Transfer Learning tốt.</li>
+                            <li>Chi phí vận hành khổng lồ.</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 border-l-2 border-cyan-500 bg-slate-800/30">
+                        <h3 class="text-xl font-bold text-white mb-2">Model Nhỏ (Pool)</h3>
+                        <ul class="list-disc list-inside text-sm text-slate-300 space-y-2">
+                            <li>Dataset cô đặc, chuyên sâu.</li>
+                            <li>Ít nhiễu (noise), giảm ảo giác.</li>
+                            <li>Nhanh hơn, rẻ hơn, sắc bén hơn.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Radar Chart -->
+                <div class="md:col-span-2 glass-card p-4 rounded-2xl">
+                    <h3 class="text-lg font-semibold mb-2 text-center text-white">So Sánh Năng Lực & Tài Nguyên</h3>
+                    <div class="chart-container">
+                        <canvas id="radarCompare"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: The China Strategy & Future Ecosystem -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12">
+            
+            <!-- China Strategy -->
+            <div>
+                <h2 class="text-2xl font-bold mb-4 text-white">Chiến Lược "Đủ Tốt" Của Trung Quốc</h2>
+                <p class="text-slate-300 mb-6 text-sm">
+                    Trong bối cảnh bị hạn chế xuất khẩu chip Compute, chiến lược không phải là chạy đua đứng đầu (SOTA), mà là đạt hiệu năng tiệm cận với chi phí tối thiểu.
+                </p>
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 mb-6">
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                            <span class="text-slate-300 text-sm">Mixture-of-Experts (MoE) & Sparse Activation</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                            <span class="text-slate-300 text-sm">Quantization (Lượng tử hóa) sâu</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                            <span class="text-slate-300 text-sm">Distillation từ các model trưởng thành phương Tây</span>
+                        </li>
+                    </ul>
+                </div>
+                 <!-- Visualizing Efficiency -->
+                 <div class="chart-container" style="height: 250px;">
+                    <canvas id="efficiencyChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Future Pyramid -->
+            <div>
+                <h2 class="text-2xl font-bold mb-6 text-white text-center">Hệ Sinh Thái AI Tương Lai</h2>
+                <div class="flex flex-col items-center justify-center h-full pb-8">
+                    
+                    <!-- Tier 1 -->
+                    <div class="pyramid-level w-48 h-20 bg-fuchsia-700 shadow-lg shadow-fuchsia-500/50 z-30">
+                        <div class="text-center">
+                            <div class="uppercase tracking-widest text-xs opacity-75">Tầng 1</div>
+                            <div>Frontier Models</div>
+                            <div class="text-[10px] font-normal opacity-80">(Teacher / Rất đắt)</div>
+                        </div>
+                    </div>
+
+                    <!-- Tier 2 -->
+                    <div class="pyramid-level w-64 h-24 bg-purple-600 shadow-lg shadow-purple-500/40 z-20 -mt-2">
+                        <div class="text-center">
+                            <div class="uppercase tracking-widest text-xs opacity-75">Tầng 2</div>
+                            <div>Distilled Models</div>
+                            <div class="text-[10px] font-normal opacity-80">(Enterprise / Triển khai rộng)</div>
+                        </div>
+                    </div>
+
+                    <!-- Tier 3 -->
+                    <div class="pyramid-level w-80 h-28 bg-cyan-600 shadow-lg shadow-cyan-500/30 z-10 -mt-2">
+                        <div class="text-center">
+                            <div class="uppercase tracking-widest text-xs opacity-75">Tầng 3</div>
+                            <div>Edge Models</div>
+                            <div class="text-[10px] font-normal opacity-80">(Local AI / On-Device)</div>
+                        </div>
+                    </div>
+
+                    <p class="text-center text-slate-400 text-sm mt-6 px-8 italic">
+                        "Nguy cơ: Cuộc đua 'hút output' thay vì sáng tạo. Trí tuệ trở thành hàng hóa sao chép."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONCLUSION -->
+        <footer class="mt-20 border-t border-slate-700 pt-12 text-center">
+            <h2 class="text-3xl font-extrabold text-white mb-6">Kết Luận: Cuộc Đua Không Còn Ở GPU</h2>
+            <div class="max-w-3xl mx-auto text-slate-300 space-y-4 text-lg">
+                <p>
+                    Cuộc chiến AI không còn đơn thuần là Nvidia so với phần còn lại, hay Compute đấu với Compute. Trọng tâm đã dịch chuyển sang: <strong>Ai xây dựng được Teacher Model tốt nhất và ai chưng cất tri thức hiệu quả nhất.</strong>
+                </p>
+                <p class="font-bold text-cyan-400 text-xl mt-8">
+                    "Khi trí tuệ có thể bị chưng cất, lợi thế thật sự không còn nằm ở sức mạnh tính toán, mà nằm ở quyền kiểm soát nguồn tri thức nguyên bản."
+                </p>
+            </div>
+            <div class="mt-12 text-slate-500 text-sm">
+                © 2026 Xuân Đi Chậm. Generated based on provided outline.
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- SCRIPT SECTION FOR CHARTS -->
+    <script>
+        // --- UTILITY: Wrap Labels for Charts ---
+        function wrapLabel(str, maxChars = 16) {
+            if (str.length <= maxChars) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + 1 + words[i].length <= maxChars) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // --- GLOBAL SETTINGS ---
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.borderColor = '#334155';
+        Chart.defaults.font.family = "'Inter', sans-serif";
+
+        const tooltipPlugin = {
+            tooltip: {
+                backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                titleColor: '#f8fafc',
+                bodyColor: '#cbd5e1',
+                borderColor: '#334155',
+                borderWidth: 1,
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                            return label.join(' ');
+                        } else {
+                            return label;
+                        }
+                    }
+                }
+            }
+        };
+
+        // --- CHART 1: Cost Comparison (Bar) ---
+        const ctxCost = document.getElementById('costChart').getContext('2d');
+        new Chart(ctxCost, {
+            type: 'bar',
+            data: {
+                labels: ['Frontier Model (Gốc)', 'Distilled Model (Học lại)'],
+                datasets: [{
+                    label: 'Chi phí Huấn luyện (Triệu USD)',
+                    data: [100, 5],
+                    backgroundColor: ['#d946ef', '#06b6d4'],
+                    borderRadius: 8,
+                    barPercentage: 0.6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    ...tooltipPlugin,
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#334155' },
+                        title: { display: true, text: 'Triệu USD' }
+                    }
+                }
+            }
+        });
+
+        // --- CHART 2: Data Quality (Donut) ---
+        const ctxData = document.getElementById('dataQualityChart').getContext('2d');
+        const rawLabelsData = ['Rác SEO & Spam', 'Nội dung lặp lại (Duplicate)', 'Tri thức gốc & Giá trị cao'];
+        const processedLabelsData = rawLabelsData.map(l => wrapLabel(l));
+
+        new Chart(ctxData, {
+            type: 'doughnut',
+            data: {
+                labels: processedLabelsData,
+                datasets: [{
+                    data: [60, 20, 20],
+                    backgroundColor: ['#334155', '#475569', '#84cc16'],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    ...tooltipPlugin,
+                    legend: {
+                        position: 'bottom',
+                        labels: { boxWidth: 12, padding: 20 }
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+
+        // --- CHART 3: Radar Comparison ---
+        const ctxRadar = document.getElementById('radarCompare').getContext('2d');
+        const radarLabelsRaw = ['Chi phí (Thấp tốt)', 'Tốc độ Inference', 'Kiến thức tổng quát', 'Độ chính xác miền hẹp', 'Khả năng triển khai'];
+        const radarLabels = radarLabelsRaw.map(l => wrapLabel(l));
+
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: radarLabels,
+                datasets: [{
+                    label: 'Frontier Model (Lớn)',
+                    data: [20, 40, 100, 70, 30], // Expensive (low score), Slow, Broad knowledge
+                    borderColor: '#d946ef', // Fuchsia
+                    backgroundColor: 'rgba(217, 70, 239, 0.2)',
+                    pointBackgroundColor: '#d946ef',
+                    borderWidth: 2
+                }, {
+                    label: 'Distilled Model (Nhỏ)',
+                    data: [90, 95, 60, 90, 95], // Cheap (high score), Fast, Narrow knowledge, High Specific Accuracy
+                    borderColor: '#06b6d4', // Cyan
+                    backgroundColor: 'rgba(6, 182, 212, 0.2)',
+                    pointBackgroundColor: '#06b6d4',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: tooltipPlugin,
+                scales: {
+                    r: {
+                        angleLines: { color: '#334155' },
+                        grid: { color: '#334155' },
+                        pointLabels: {
+                            color: '#cbd5e1',
+                            font: { size: 11 }
+                        },
+                        ticks: { display: false, backdropColor: 'transparent' }
+                    }
+                }
+            }
+        });
+
+        // --- CHART 4: Efficiency (Horizontal Bar) ---
+        const ctxEff = document.getElementById('efficiencyChart').getContext('2d');
+        new Chart(ctxEff, {
+            type: 'bar',
+            data: {
+                labels: ['Hiệu Năng (%)', 'Chi Phí (%)'],
+                datasets: [{
+                    label: 'Top Model (Mỹ)',
+                    data: [100, 100],
+                    backgroundColor: '#d946ef',
+                    borderColor: '#d946ef',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Challenger Model (TQ)',
+                    data: [90, 40],
+                    backgroundColor: '#06b6d4',
+                    borderColor: '#06b6d4',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    ...tooltipPlugin,
+                    legend: { position: 'top' }
+                },
+                scales: {
+                    x: {
+                        grid: { color: '#334155' },
+                        max: 120
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
